@@ -53,6 +53,7 @@ public class DriveSubsystem extends SubsystemBase {
           DriveConstants.kRearRightTurningEncoderReversed);
 
   // The gyro sensor
+  // TODO: Ensure this is the right Gyro
   private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
   // Odometry class for tracking robot pose
@@ -68,6 +69,7 @@ public class DriveSubsystem extends SubsystemBase {
           });
 
   /** Creates a new DriveSubsystem. */
+  // TODO: Needs code that waits on a different thread 1 sec then resets the Gyro from 'swerve zero to autonomous'
   public DriveSubsystem() {}
 
   @Override
@@ -117,6 +119,7 @@ public class DriveSubsystem extends SubsystemBase {
    * @param rot Angular rate of the robot.
    * @param fieldRelative Whether the provided x and y speeds are relative to the field.
    */
+  // TODO: This will be handeled in SwerveJoystickCmd for tele-op, but this can be left here for now until it's refactored
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
     var swerveModuleStates =
         DriveConstants.kDriveKinematics.toSwerveModuleStates(

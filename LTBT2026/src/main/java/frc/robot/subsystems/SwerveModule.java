@@ -15,9 +15,11 @@ import frc.robot.Constants.ModuleConstants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class SwerveModule {
+  // TODO: Update to Kraken instead, spark is correct for turning though
   private final Spark m_driveMotor;
   private final Spark m_turningMotor;
 
+  // TODO: Update to Kraken instead
   private final Encoder m_driveEncoder;
   private final Encoder m_turningEncoder;
 
@@ -51,9 +53,10 @@ public class SwerveModule {
       int[] turningEncoderChannels,
       boolean driveEncoderReversed,
       boolean turningEncoderReversed) {
+    // TODO: update to Kraken instead
     m_driveMotor = new Spark(driveMotorChannel);
     m_turningMotor = new Spark(turningMotorChannel);
-
+    // TODO: Update to Kraken instead
     m_driveEncoder = new Encoder(driveEncoderChannels[0], driveEncoderChannels[1]);
 
     m_turningEncoder = new Encoder(turningEncoderChannels[0], turningEncoderChannels[1]);

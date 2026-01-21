@@ -37,6 +37,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
   // The driver's controller
+  // TODO: Change this to the controllers we have
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -48,10 +49,14 @@ public class RobotContainer {
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
+
+        // TODO: Change to use SwerveJoystickCmd instead of raw joystick values
         new RunCommand( () ->  m_robotDrive.drive(
                     // Multiply by max speed to map the joystick unitless inputs to actual units.
                     // This will map the [-1, 1] to [max speed backwards, max speed forwards],
                     // converting them to actual units.
+
+                    // TODO: Change the 'false' for fieldRElative to true, and pass the gyro when doing SwerveJoystickCmd
                     m_driverController.getLeftY() * DriveConstants.kMaxSpeedMetersPerSecond,
                     m_driverController.getLeftX() * DriveConstants.kMaxSpeedMetersPerSecond,
                     m_driverController.getRightX()
