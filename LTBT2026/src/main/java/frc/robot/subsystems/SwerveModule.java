@@ -10,13 +10,15 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.Constants.ModuleConstants;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 public class SwerveModule {
   // TODO: Update to Kraken instead, spark is correct for turning though
-  private final Spark m_driveMotor;
+  private final TalonFX m_driveMotor;
   private final Spark m_turningMotor;
 
   // TODO: Update to Kraken instead
@@ -54,7 +56,7 @@ public class SwerveModule {
       boolean driveEncoderReversed,
       boolean turningEncoderReversed) {
     // TODO: update to Kraken instead
-    m_driveMotor = new Spark(driveMotorChannel);
+    m_driveMotor = new TalonFX(driveMotorChannel);
     m_turningMotor = new Spark(turningMotorChannel);
     // TODO: Update to Kraken instead
     m_driveEncoder = new Encoder(driveEncoderChannels[0], driveEncoderChannels[1]);
@@ -97,9 +99,10 @@ public class SwerveModule {
    *
    * @return The current position of the module.
    */
+  // TODO: This cast is a guess, check if it works correctly, the rest of the code will need to use the motor directrly to get the motor's encoder
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
-        m_driveEncoder.getDistance(), new Rotation2d(m_turningEncoder.getDistance()));
+        (Distance) (m_driveMotor.getPosition()), new Rotation2d(m_turningEncoder.getDistance()));
   }
 
   /**
