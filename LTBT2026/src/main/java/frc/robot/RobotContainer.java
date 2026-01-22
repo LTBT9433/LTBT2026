@@ -56,7 +56,7 @@ public class RobotContainer {
                     // This will map the [-1, 1] to [max speed backwards, max speed forwards],
                     // converting them to actual units.
 
-                    // TODO: Change the 'false' for fieldRElative to true, and pass the gyro when doing SwerveJoystickCmd
+                    // TODO: Change the 'false' for fieldRElative to true, and pass the gyro when doing SwerveJoystickCmd.
                     m_driverController.getLeftY() * DriveConstants.kMaxSpeedMetersPerSecond,
                     m_driverController.getLeftX() * DriveConstants.kMaxSpeedMetersPerSecond,
                     m_driverController.getRightX()
