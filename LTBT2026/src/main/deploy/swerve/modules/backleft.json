@@ -23,5 +23,6 @@
     "drive": false,
     "angle": false
   },
-  "absoluteEncoderInverted": false
+  "absoluteEncoderInverted": false,
+  "useCosineCompensator": true
 }
