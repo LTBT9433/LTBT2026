@@ -1,16 +1,16 @@
-package frc.robot.commands.auto;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc3512.robot.subsystems.Swerve;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class DriveToPose extends CommandBase {
+public class DriveToPose extends Command {
 
-  private final Swerve swerve;
+  private final SwerveSubsystem swerve;
   private Pose2d desiredPose;
 
   private final ProfiledPIDController xController =
@@ -20,7 +20,7 @@ public class DriveToPose extends CommandBase {
   private final ProfiledPIDController thetaController =
       new ProfiledPIDController(2.2, 0.0, 0.0, new TrapezoidProfile.Constraints(1.0, 3.0));
 
-  public DriveToPose(Swerve swerve, Pose2d pose) {
+  public DriveToPose(SwerveSubsystem swerve, Pose2d pose) {
     this.swerve = swerve;
     this.desiredPose = pose;
 
