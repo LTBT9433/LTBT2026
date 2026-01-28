@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
+import frc.robot.commands.Auto.DriveToPose;
 
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -44,7 +45,7 @@ public class RobotContainer
 {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandGenericHID driverXbox = new CommandGenericHID(0);
+  final         CommandGenericHID driverController = new CommandGenericHID(0);
   // The robot's subsystems and commands are defined here...
   // TODO: update the config to use our configs instead
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -59,9 +60,9 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverXbox.getRawAxis(0) * -1,
-                                                                () -> driverXbox.getRawAxis(1) * -1)
-                                                            .withControllerRotationAxis(() -> driverXbox.getRawAxis(4))
+                                                                () -> driverController.getRawAxis(0) * -1,
+                                                                () -> driverController.getRawAxis(1) * -1)
+                                                            .withControllerRotationAxis(() -> driverController.getRawAxis(4))
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -80,7 +81,10 @@ public class RobotContainer
 
     //Add a simple auto option to have the robot drive forward for 1 second then stop
     
-    //autoChooser.addOption("Drive Forward 1m",  );
+    autoChooser.addOption("Drive Forward 1m", new DriveToPose(
+                                                        drivebase, 
+                                                        new Pose2d(0,1, 
+                                                        Rotation2d.fromDegrees(180))));
     
     // Move Forward by 1 meter
     autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
