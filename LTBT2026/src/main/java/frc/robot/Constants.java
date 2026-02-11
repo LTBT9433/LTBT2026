@@ -48,4 +48,8 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+  public static class ShooterConstants{
+    public static final int SHOOTER_ID = 11;
+    public static final int FEEDER_ID = 12;
+  }
 }
