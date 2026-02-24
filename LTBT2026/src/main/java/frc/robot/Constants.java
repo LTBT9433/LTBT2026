@@ -49,7 +49,15 @@ public final class Constants
     public static final double TURN_CONSTANT    = 6;
   }
   public static class ShooterConstants{
-    public static final int SHOOTER_ID = 11;
-    public static final int FEEDER_ID = 12;
+    public static final int SHOOTER_ID = 12;
+    public static final int FEEDER_ID = 10;
+  }
+  public static class IntakeConstants{
+    public static final int INTAKE_ID = 9;
+    public static final double INTAKE_SPEED = 0.5;
+  }
+  public static class ArmCostants{
+    public static final int ARM_ID = 11;
+    public static final double ARM_SPEED = 0.25;
   }
 }

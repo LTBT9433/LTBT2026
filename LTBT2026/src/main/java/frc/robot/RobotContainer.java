@@ -23,12 +23,15 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.Auto.DriveToPose;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -46,10 +49,14 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandGenericHID driverController = new CommandGenericHID(0);
+  final         CommandGenericHID kynanController= new CommandGenericHID(1);
   // The robot's subsystems and commands are defined here...
   // TODO: update the config to use our configs instead
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
+
+  private final ArmSubsystem  armSystem = new ArmSubsystem();
+  //private final IntakeSubsystem intakeSystem;
 
   
 
@@ -103,7 +110,12 @@ public class RobotContainer
   {
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+    armSystem.setDefaultCommand(armSystem.stopArm());
 
+    kynanController.button(4).whileTrue(armSystem.armUp());
+    kynanController.button(0).whileTrue(armSystem.armDown());
+
+    
 
   }
 
