@@ -81,7 +81,7 @@ public class RobotContainer
   {
     // Configure the trigger bindings
     configureBindings();
-    DriverStation.silenceJoystickConnectionWarning(true);
+    // DriverStation.silenceJoystickConnectionWarning(true);
 
     //Set the default auto (do nothing) 
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
@@ -113,7 +113,8 @@ public class RobotContainer
     armSystem.setDefaultCommand(armSystem.stopArm());
 
     kynanController.button(4).whileTrue(armSystem.armUp());
-    kynanController.button(0).whileTrue(armSystem.armDown());
+    kynanController.button(1).whileTrue(armSystem.armDown());
+    // new Trigger(kynanController.button(1)).whileTrue(armSystem.armUp());
 
     
 

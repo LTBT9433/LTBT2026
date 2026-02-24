@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import com.revrobotics.spark.SparkMax;
+// import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmCostants;
 
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+// import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class ArmSubsystem extends SubsystemBase {
  
@@ -28,11 +28,12 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public Command armUp(){
-    return this.run(() -> arm.set(ArmCostants.ARM_SPEED));
+    // System.out.print("going up!1111111\n");
+    return this.run(() -> arm.set(-ArmCostants.ARM_SPEED));
   }
 
   public Command armDown(){
-    return this.run(() -> arm.set(-ArmCostants.ARM_SPEED));
+    return this.run(() -> arm.set(ArmCostants.ARM_SPEED));
   }
 
 
@@ -43,7 +44,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+  
   }
 
   @Override
