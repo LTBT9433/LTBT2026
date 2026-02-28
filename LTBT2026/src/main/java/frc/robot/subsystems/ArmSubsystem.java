@@ -16,15 +16,18 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmCostants;
 
+import com.revrobotics.spark.*;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 // import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class ArmSubsystem extends SubsystemBase {
  
-  private Spark arm;
+  private SparkMax arm;
  
   /** Creates a new ExampleSubsystem. */
   public ArmSubsystem() {
-    this.arm = new Spark(ArmCostants.ARM_ID);
+    this.arm = new SparkMax(ArmCostants.ARM_ID, MotorType.kBrushless);
   }
 
   public Command armUp(){
