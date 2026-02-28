@@ -31,7 +31,9 @@ import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
 import frc.robot.commands.Auto.DriveToPose;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -56,6 +58,8 @@ public class RobotContainer
                                                                                 "swerve"));
 
   private final ArmSubsystem  armSystem = new ArmSubsystem();
+  private final ShooterSubsystem shootSystem = new ShooterSubsystem();
+  private final FeederSubsystem feedSystem = new FeederSubsystem();
   //private final IntakeSubsystem intakeSystem;
 
   
@@ -111,12 +115,14 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     armSystem.setDefaultCommand(armSystem.stopArm());
+    feedSystem.setDefaultCommand(feedSystem.stopFeeder());
+    shootSystem.setDefaultCommand(shootSystem.stopShooter());
 
-    kynanController.button(4).whileTrue(armSystem.armUp());
-    kynanController.button(1).whileTrue(armSystem.armDown());
-    // new Trigger(kynanController.button(1)).whileTrue(armSystem.armUp());
+    // kynanController.button(4).whileTrue(armSystem.armUp());
+    // kynanController.button(1).whileTrue(armSystem.armDown());
 
-    
+    kynanController.button(5).whileTrue(feedSystem.feedCommand());
+    kynanController.button(6).toggleOnTrue(shootSystem.shootCommand());
 
   }
 

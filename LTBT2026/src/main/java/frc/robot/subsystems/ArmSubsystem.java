@@ -31,7 +31,6 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public Command armUp(){
-    // System.out.print("going up!1111111\n");
     return this.run(() -> arm.set(-ArmCostants.ARM_SPEED));
   }
 

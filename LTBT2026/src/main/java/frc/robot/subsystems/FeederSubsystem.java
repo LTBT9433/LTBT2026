@@ -10,22 +10,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-public class ShooterSubsystem extends SubsystemBase {
+public class FeederSubsystem extends SubsystemBase {
  
-  private SparkMax shooter;
+  private SparkMax feed;
  
   /** Creates a new ExampleSubsystem. */
-  public ShooterSubsystem() {
-    shooter = new SparkMax(ShooterConstants.SHOOTER_ID, MotorType.kBrushless);
+  public FeederSubsystem() {
+    feed = new SparkMax(ShooterConstants.FEEDER_ID, MotorType.kBrushed);
   }
 
-  public Command shootCommand(){
-    return this.run(() -> shooter.set(-0.5));
+  public Command feedCommand(){
+    return this.run(() -> feed.set(-0.5));
   }
 
 
-  public Command stopShooter(){
-    return this.run(() -> shooter.set(0));
+  public Command stopFeeder(){
+    return this.run(() -> feed.set(0));
 
   }
 
