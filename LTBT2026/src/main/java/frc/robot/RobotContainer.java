@@ -121,6 +121,7 @@ public class RobotContainer
     // kynanController.button(4).whileTrue(armSystem.armUp());
     // kynanController.button(1).whileTrue(armSystem.armDown());
 
+    kynanController.button(3).whileTrue(feedSystem.feedOutCommand());
     kynanController.button(5).whileTrue(feedSystem.feedCommand());
     kynanController.button(6).toggleOnTrue(shootSystem.shootCommand());
 
