@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.*;;
 
 public class ArmSubsystem extends SubsystemBase {
  
@@ -44,6 +45,8 @@ public class ArmSubsystem extends SubsystemBase {
   private final PIDController m_armFeedback = new PIDController(ArmCostants.ARM_P_VALUE, 0, 0);
 
   private double desiredAngle = 0;
+
+  private final DoublePublisher encoderAngle;
 
   public ArmSubsystem() {
     m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_RAD);
@@ -72,7 +75,7 @@ public class ArmSubsystem extends SubsystemBase {
   // }
 
   public Command armToAngle(){
-
+    System.out.printf("Angle: %.2f\n",m_armEncoder.getDistance());
     return run(() -> {
         armMotor.setVoltage(
           m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)
