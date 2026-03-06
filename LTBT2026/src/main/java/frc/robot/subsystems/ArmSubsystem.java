@@ -50,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
   // private final DoublePublisher encoderAngle;
 
   public ArmSubsystem() {
-    m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_RAD);
+    m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_DEG);
     m_armEncoder.setDistancePerPulse(ArmCostants.ENCODER_DIST_PER_PULSE);
     // this.desiredAngle = 0;
 
@@ -75,8 +75,10 @@ public class ArmSubsystem extends SubsystemBase {
   //   // return this.run(() -> armMotor.set(ArmCostants.ARM_SPEED));
   // }
 
+  // change to run until from combining motion profiling and pid command based
   public Command armToAngle(){
     this.measuredAngle = m_armEncoder.getDistance();
+    // check if you can just use ARM_ENCODER_REVERSE instead of negating the PID
     return run(() -> {
         armMotor.setVoltage(
           m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)

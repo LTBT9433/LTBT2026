@@ -58,7 +58,7 @@ public final class Constants
   }
   public static class ArmCostants{
     public static final int ARM_ID = 11;
-    public static final double ARM_SPEED = -0.15;
+    public static final double ARM_SPEED = -0.15; // use invert instead?
 
     public static final double ARM_SVOLTS = 0.1;
     public static final double ARM_G_GAIN = 0.1;
@@ -69,7 +69,7 @@ public final class Constants
     public static final int[] ARM_ENCODER_ID = {0,1};
     public static final boolean ARM_ENCODER_REVERSED = false;
 
-    public static final double ARM_TOLERANCE_RAD = Units.degreesToRadians(1); // One degree
+    public static final double ARM_TOLERANCE_DEG = 1; // One degree
     public static final double ENCODER_DIST_PER_PULSE = 0.04;
   }
 }
