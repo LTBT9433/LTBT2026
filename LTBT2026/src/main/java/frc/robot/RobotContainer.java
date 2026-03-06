@@ -131,7 +131,7 @@ public class RobotContainer
 
     // intake
     kynanController.button(7).whileTrue(intakeSystem.intakeIn());
-    kynanController.button(8).whileTrue(intakeSystem.intakeout());
+    kynanController.button(8).whileTrue(intakeSystem.intakeOut());
     // For reference: if then:
     // commandScheduler.schedule(new MyCommand());
 
