@@ -60,6 +60,7 @@ public class RobotContainer
   private final ArmSubsystem  armSystem = new ArmSubsystem();
   private final ShooterSubsystem shootSystem = new ShooterSubsystem();
   private final FeederSubsystem feedSystem = new FeederSubsystem();
+  private final IntakeSubsystem intakeSystem = new IntakeSubsystem();
   //private final IntakeSubsystem intakeSystem;
 
   
@@ -113,17 +114,28 @@ public class RobotContainer
   private void configureBindings()
   {
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+
+    // Defaults
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
     armSystem.setDefaultCommand(armSystem.stopArm());
     feedSystem.setDefaultCommand(feedSystem.stopFeeder());
     shootSystem.setDefaultCommand(shootSystem.stopShooter());
+    intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
 
-    // kynanController.button(4).whileTrue(armSystem.armUp());
-    // kynanController.button(1).whileTrue(armSystem.armDown());
-
+    // feed wheel
     kynanController.button(3).whileTrue(feedSystem.feedOutCommand());
     kynanController.button(5).whileTrue(feedSystem.feedCommand());
+
+    // Shooter
     kynanController.button(6).toggleOnTrue(shootSystem.shootCommand());
+
+    // intake
+    kynanController.button(7).whileTrue(intakeSystem.intakeIn());
+    kynanController.button(8).whileTrue(intakeSystem.intakeout());
+    // For reference: if then:
+    // commandScheduler.schedule(new MyCommand());
+
+    // Arm
 
   }
 

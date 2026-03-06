@@ -9,26 +9,31 @@ import com.revrobotics.spark.SparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class IntakeSubsystem extends SubsystemBase {
  
-  private Spark intake;
+  private SparkMax intake;
  
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
-    this.intake = new Spark(IntakeConstants.INTAKE_ID);
+    intake = new SparkMax(Constants.IntakeConstants.INTAKE_ID, MotorType.kBrushed);
   }
 
   public Command intakeIn(){
-    return this.runOnce(() -> intake.set(IntakeConstants.INTAKE_SPEED));
+    return this.run(() -> intake.set(-0.8));
   }
 
   public Command intakeOut(){
-    return this.runOnce(() -> intake.set(-IntakeConstants.INTAKE_SPEED));
+    return this.run(() -> intake.set(0.5));
   }
 
+  public Command stopIntake(){
+    return this.run(() -> intake.set(0));
+
+  }
 
   @Override
   public void periodic() {
