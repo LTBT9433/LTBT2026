@@ -81,7 +81,7 @@ public class ArmSubsystem extends SubsystemBase {
     // check if you can just use ARM_ENCODER_REVERSE instead of negating the PID
     return run(() -> {
         armMotor.setVoltage(
-          m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)
+          m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED) // desiredAngle should be in rads?
           - m_armFeedback.calculate(m_armEncoder.getDistance(), 
           this.desiredAngle)
         );
