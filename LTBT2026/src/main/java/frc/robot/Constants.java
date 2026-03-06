@@ -66,7 +66,7 @@ public final class Constants
 
     public static final double ARM_P_VALUE = 0.1;
 
-    public static final int[] ARM_ENCODER_ID = {0,0};
+    public static final int[] ARM_ENCODER_ID = {0,1};
     public static final boolean ARM_ENCODER_REVERSED = false;
 
     public static final double ARM_TOLERANCE_RAD = Units.degreesToRadians(1); // One degree

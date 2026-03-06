@@ -43,7 +43,7 @@ public class ArmSubsystem extends SubsystemBase {
  
   private final PIDController m_armFeedback = new PIDController(ArmCostants.ARM_P_VALUE, 0, 0);
 
-  // private double desiredAngle = 0;
+  private double desiredAngle = 0;
 
   public ArmSubsystem() {
     m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_RAD);
@@ -71,13 +71,13 @@ public class ArmSubsystem extends SubsystemBase {
   //   // return this.run(() -> armMotor.set(ArmCostants.ARM_SPEED));
   // }
 
-  public Command armToAngle(double desiredAngle){
+  public Command armToAngle(){
 
     return run(() -> {
         armMotor.setVoltage(
-          m_armFeedforward.calculate(desiredAngle, ArmCostants.ARM_SPEED)
+          m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)
           + m_armFeedback.calculate(Units.degreesToRadians(m_armEncoder.getDistance()), 
-          desiredAngle)
+          this.desiredAngle)
         );
     });
   }

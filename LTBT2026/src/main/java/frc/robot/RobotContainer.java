@@ -53,7 +53,6 @@ public class RobotContainer
   final         CommandGenericHID driverController = new CommandGenericHID(0);
   final         CommandGenericHID kynanController= new CommandGenericHID(1);
   // The robot's subsystems and commands are defined here...
-  // TODO: update the config to use our configs instead
   private final SwerveSubsystem       drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve"));
 
@@ -117,7 +116,7 @@ public class RobotContainer
 
     // Defaults
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    armSystem.setDefaultCommand(armSystem.stopArm());
+    armSystem.setDefaultCommand(armSystem.armToAngle());
     feedSystem.setDefaultCommand(feedSystem.stopFeeder());
     shootSystem.setDefaultCommand(shootSystem.stopShooter());
     intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
