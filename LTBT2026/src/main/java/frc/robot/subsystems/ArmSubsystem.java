@@ -19,25 +19,64 @@ import frc.robot.Constants.ArmCostants;
 import com.revrobotics.spark.*;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-// import com.revrobotics.spark.SparkLowLevel.MotorType;
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.util.Units;
 
 public class ArmSubsystem extends SubsystemBase {
  
-  private SparkMax arm;
+  private final SparkMax armMotor = new SparkMax(ArmCostants.ARM_ID, MotorType.kBrushless);
+
+  private final Encoder m_armEncoder = 
+       new Encoder(
+        ArmCostants.ARM_ENCODER_ID[0],
+        ArmCostants.ARM_ENCODER_ID[1],
+        ArmCostants.ARM_ENCODER_REVERSED);
+
+  private final ArmFeedforward m_armFeedforward = 
+        new ArmFeedforward(ArmCostants.ARM_SVOLTS,ArmCostants.ARM_G_GAIN , ArmCostants.ARM_V_PER_RAD_SEC);
  
-  /** Creates a new ExampleSubsystem. */
+  private final PIDController m_armFeedback = new PIDController(ArmCostants.ARM_P_VALUE, 0, 0);
+
+  private double desiredAngle = 0;
+
   public ArmSubsystem() {
-    this.arm = new SparkMax(ArmCostants.ARM_ID, MotorType.kBrushless);
+    m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_DEG);
+    m_armEncoder.setDistancePerPulse(ArmCostants.ENCODER_DIST_PER_PULSE);
+    this.desiredAngle = 0;
+
+    // // Set default command to turn off both the shooter and feeder motors, and then idle
+    // setDefaultCommand(
+    //     runOnce(
+    //             () -> {
+    //               m_shooterMotor.disable();
+    //               m_feederMotor.disable();
+    //             })
+    //         .andThen(run(() -> {}))
+    //         .withName("Idle"));
   }
 
   public Command armUp(){
-    return this.run(() -> arm.set(-ArmCostants.ARM_SPEED));
+    this.desiredAngle = 0;
+    // return this.run(() -> armMotor.set(-ArmCostants.ARM_SPEED));
   }
 
   public Command armDown(){
-    return this.run(() -> arm.set(ArmCostants.ARM_SPEED));
+    this.desiredAngle = Units.degreesToRadians(45);
+    // return this.run(() -> armMotor.set(ArmCostants.ARM_SPEED));
   }
 
+  public Command armToAngle(){
+    run(() -> {
+        armMotor.setVoltage(
+          m_armFeedforward.calculate(desiredAngle, ArmCostants.ARM_SPEED)
+          + m_armFeedback.calculate(Units.degreesToRadians(m_armEncoder.getDistance()), 
+          this.desiredAngle)
+        );
+    });
+  }
 
   public Command stopArm(){
     return run(() -> arm.set(0));

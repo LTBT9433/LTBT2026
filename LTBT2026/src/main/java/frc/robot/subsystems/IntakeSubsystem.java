@@ -19,7 +19,7 @@ public class IntakeSubsystem extends SubsystemBase {
  
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
-    intake = new SparkMax(Constants.IntakeConstants.INTAKE_ID, MotorType.kBrushed);
+    intake = new SparkMax(Constants.IntakeConstants.INTAKE_ID, MotorType.kBrushless);
   }
 
   public Command intakeIn(){
