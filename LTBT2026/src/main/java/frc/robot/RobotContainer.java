@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ArmCostants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteFieldDrive;
@@ -135,6 +136,12 @@ public class RobotContainer
     // commandScheduler.schedule(new MyCommand());
 
     // Arm
+    if (kynanController.button(9)){
+      armSystem.setArmAngle(0);
+    }
+    else if(kynanController.button(10)){
+      armSystem.setArmAngle(ArmCostants.ARM_VERTICAL);
+    }
 
   }
 

@@ -25,7 +25,8 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.*;;
+import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
  
@@ -44,14 +45,14 @@ public class ArmSubsystem extends SubsystemBase {
  
   private final PIDController m_armFeedback = new PIDController(ArmCostants.ARM_P_VALUE, 0, 0);
 
-  private double desiredAngle = 5;
+  private double desiredAngle = ArmCostants.ARM_VERTICAL;
   private double measuredAngle = 0;
 
   // private final DoublePublisher encoderAngle;
 
   public ArmSubsystem() {
-    m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_DEG);
-    m_armEncoder.setDistancePerPulse(ArmCostants.ENCODER_DIST_PER_PULSE);
+    m_armFeedback.setTolerance(ArmCostants.ARM_TOLERANCE_RAD);
+    m_armEncoder.setDistancePerPulse(ArmCostants.kEncoderDistancePerPulse);
     // this.desiredAngle = 0;
 
     // // Set default command to turn off both the shooter and feeder motors, and then idle
@@ -78,14 +79,21 @@ public class ArmSubsystem extends SubsystemBase {
   // change to run until from combining motion profiling and pid command based
   public Command armToAngle(){
     this.measuredAngle = m_armEncoder.getDistance();
-    // check if you can just use ARM_ENCODER_REVERSE instead of negating the PID
+
+    SmartDashboard.putNumber("ARM/Measured distance rads", this.measuredAngle);
+    SmartDashboard.putNumber("ARM/Offset distance rads", this.measuredAngle + ArmCostants.ARM_VERTICAL);
+    SmartDashboard.putNumber("ARM/Desired angle", this.desiredAngle);
+
+    double feedforward = m_armFeedforward.calculate(this.desiredAngle, ArmCostants.kMaxVelocityRadPerSec); // desiredAngle should be in rads?
+
+    double feedback = m_armFeedback.calculate(m_armEncoder.getDistance() + ArmCostants.ARM_VERTICAL, this.desiredAngle);
+    
     return run(() -> {
-        armMotor.setVoltage(
-          m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED) // desiredAngle should be in rads?
-          - m_armFeedback.calculate(m_armEncoder.getDistance(), 
-          this.desiredAngle)
-        );
+        armMotor.setVoltage(feedforward + feedback);
     });
+  }
+  public void setArmAngle(double angle){
+    this.desiredAngle = angle;
   }
 
   public Command stopArm(){
@@ -96,8 +104,8 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
   
-    this.measuredAngle = m_armEncoder.getDistance();
-    System.out.printf("Angle: %.2f\n",this.measuredAngle);
+    // this.measuredAngle = m_armEncoder.getDistance();
+    // System.out.printf("Angle: %.2f\n",this.measuredAngle);
     // armMotor.setVoltage(
     //   m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)
     //   + m_armFeedback.calculate(Units.degreesToRadians(m_armEncoder.getDistance()), 

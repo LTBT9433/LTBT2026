@@ -58,18 +58,22 @@ public final class Constants
   }
   public static class ArmCostants{
     public static final int ARM_ID = 11;
-    public static final double ARM_SPEED = -0.15; // use invert instead?
+    public static final double kMaxVelocityRadPerSec = Units.degreesToRadians(0.15); 
 
-    public static final double ARM_SVOLTS = 0.1;
-    public static final double ARM_G_GAIN = 0.1;
-    public static final double ARM_V_PER_RAD_SEC = 0.1;
+    public static final double ARM_SVOLTS = 0; // may need increase if it's too slow, this accounds for friction
+    public static final double ARM_G_GAIN = 0.5; // gravity gain
+    public static final double ARM_V_PER_RAD_SEC = 0.1; // velocity gain
 
     public static final double ARM_P_VALUE = 0.1;
 
     public static final int[] ARM_ENCODER_ID = {0,1};
-    public static final boolean ARM_ENCODER_REVERSED = false;
+    public static final boolean ARM_ENCODER_REVERSED = true;
 
-    public static final double ARM_TOLERANCE_DEG = 1; // One degree
-    public static final double ENCODER_DIST_PER_PULSE = 0.04;
+    public static final double ARM_TOLERANCE_RAD = Units.degreesToRadians(0.1); 
+    // public static final double ENCODER_DIST_PER_PULSE = 0.04;
+
+    public static final double ENCODER_TICK_RATE = 2048;
+    public static final double kEncoderDistancePerPulse = 2 * Math.PI / ENCODER_TICK_RATE; // 2rad per full rotation
+    public static final double ARM_VERTICAL = 0; // NEEDS TO BE MEASURED!
   }
 }
