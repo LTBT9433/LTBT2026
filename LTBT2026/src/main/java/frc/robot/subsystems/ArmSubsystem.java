@@ -89,7 +89,8 @@ public class ArmSubsystem extends SubsystemBase {
     double feedback = m_armFeedback.calculate(m_armEncoder.getDistance() + ArmCostants.ARM_VERTICAL, this.desiredAngle);
     
     return run(() -> {
-        armMotor.setVoltage(feedforward + feedback);
+        // armMotor.setVoltage(feedforward + feedback);
+        armMotor.setVoltage(0);
     });
   }
   public void setArmAngle(double angle){
