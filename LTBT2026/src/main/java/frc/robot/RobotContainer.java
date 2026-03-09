@@ -74,7 +74,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverController.getRawAxis(1) * 1,
                                                                 () -> driverController.getRawAxis(0) * 1)
-                                                            .withControllerRotationAxis(() -> driverController.getRawAxis(4) * -1)
+                                                            .withControllerRotationAxis(() -> driverController.getRawAxis(4) * -0.5)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -123,25 +123,29 @@ public class RobotContainer
     intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
 
     // feed wheel
-    kynanController.button(3).whileTrue(feedSystem.feedOutCommand());
+    kynanController.button(6).whileTrue(feedSystem.feedOutCommand());
     kynanController.button(5).whileTrue(feedSystem.feedCommand());
 
     // Shooter
-    kynanController.button(6).toggleOnTrue(shootSystem.shootCommand());
+    kynanController.button(2).toggleOnTrue(shootSystem.shootCommand());
 
     // intake
-    kynanController.button(7).whileTrue(intakeSystem.intakeIn());
-    kynanController.button(8).whileTrue(intakeSystem.intakeOut());
+    kynanController.button(1).whileTrue(intakeSystem.intakeIn());
+    kynanController.button(4).whileTrue(intakeSystem.intakeOut());
+
+    // kynanController.button(3).whileTrue(armSystem.armUp());
     // For reference: if then:
     // commandScheduler.schedule(new MyCommand());
 
     // Arm
-    if (kynanController.button(9)){
-      armSystem.setArmAngle(0);
-    }
-    else if(kynanController.button(10)){
-      armSystem.setArmAngle(ArmCostants.ARM_VERTICAL);
-    }
+    // if (kynanController.button(2).getAsBoolean() == true){
+    // System.out.print("Arm Down");
+    //   armSystem.setArmAngle(0);
+    // }
+    // else if(kynanController.button(3).getAsBoolean() == true){
+    // System.out.print("Arm UP");
+    //   armSystem.setArmAngle(ArmCostants.ARM_VERTICAL);
+    // }
 
   }
 

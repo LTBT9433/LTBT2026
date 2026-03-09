@@ -22,7 +22,7 @@ public final class Constants
   public static final double ROBOT_MASS = (148 - 20.3) * 0.453592; // 32lbs * kg per pound
   public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
   public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
-  public static final double MAX_SPEED  = 5;
+  public static final double MAX_SPEED  = 3.5;
   // Maximum speed of the robot in meters per second, used to limit acceleration.
 
 //  public static final class AutonConstants
@@ -58,13 +58,13 @@ public final class Constants
   }
   public static class ArmCostants{
     public static final int ARM_ID = 11;
-    public static final double kMaxVelocityRadPerSec = Units.degreesToRadians(0.15); 
+    public static final double kMaxVelocityRadPerSec = Units.degreesToRadians(0.2); 
 
     public static final double ARM_SVOLTS = 0; // may need increase if it's too slow, this accounds for friction
-    public static final double ARM_G_GAIN = 0.5; // gravity gain
-    public static final double ARM_V_PER_RAD_SEC = 0.1; // velocity gain
+    public static final double ARM_G_GAIN = 0.1; // gravity gain
+    public static final double ARM_V_PER_RAD_SEC = 0.2; // velocity gain
 
-    public static final double ARM_P_VALUE = 0.1;
+    public static final double ARM_P_VALUE = 0.2;
 
     public static final int[] ARM_ENCODER_ID = {0,1};
     public static final boolean ARM_ENCODER_REVERSED = true;
@@ -74,6 +74,6 @@ public final class Constants
 
     public static final double ENCODER_TICK_RATE = 2048;
     public static final double kEncoderDistancePerPulse = 2 * Math.PI / ENCODER_TICK_RATE; // 2rad per full rotation
-    public static final double ARM_VERTICAL = 0; // NEEDS TO BE MEASURED!
+    public static final double ARM_VERTICAL = 1.48; // NEEDS TO BE MEASURED!
   }
 }

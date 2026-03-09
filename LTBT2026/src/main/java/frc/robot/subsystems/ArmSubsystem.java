@@ -45,7 +45,8 @@ public class ArmSubsystem extends SubsystemBase {
  
   private final PIDController m_armFeedback = new PIDController(ArmCostants.ARM_P_VALUE, 0, 0);
 
-  private double desiredAngle = ArmCostants.ARM_VERTICAL;
+  // private double desiredAngle = ArmCostants.ARM_VERTICAL;
+  private double desiredAngle = 0;
   private double measuredAngle = 0;
 
   // private final DoublePublisher encoderAngle;
@@ -101,12 +102,17 @@ public class ArmSubsystem extends SubsystemBase {
     return run(() -> armMotor.set(0));
   }
 
+  public Command armUp(){
+    return run(() -> armMotor.set(0.1));
+  }
 
   @Override
   public void periodic() {
   
     // this.measuredAngle = m_armEncoder.getDistance();
-    // System.out.printf("Angle: %.2f\n",this.measuredAngle);
+    // System.out.printf("measured Angle: %.2f\n",this.measuredAngle);
+    // System.out.printf("Offset distance Angle: %.2f\n",this.measuredAngle + ArmCostants.ARM_VERTICAL);
+    // System.out.printf("Desired angle: %.2f\n",this.desiredAngle);
     // armMotor.setVoltage(
     //   m_armFeedforward.calculate(this.desiredAngle, ArmCostants.ARM_SPEED)
     //   + m_armFeedback.calculate(Units.degreesToRadians(m_armEncoder.getDistance()), 

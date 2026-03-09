@@ -20,7 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public Command shootCommand(){
-    return this.run(() -> shooter.set(-0.6));
+    return this.run(() -> shooter.set(0.6));
   }
 
 

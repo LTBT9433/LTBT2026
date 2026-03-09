@@ -24,7 +24,7 @@ public class FeederSubsystem extends SubsystemBase {
   }
 
   public Command feedOutCommand(){
-    return this.run(() -> feed.set(0.5));
+    return this.run(() -> feed.set(0.8));
   }
 
 
