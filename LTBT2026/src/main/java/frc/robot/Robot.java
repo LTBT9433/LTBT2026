@@ -29,6 +29,7 @@ public class Robot extends TimedRobot
   public Robot()
   {
     instance = this;
+    CameraServer.startAutomaticCapture();
   }
 
   public static Robot getInstance()
@@ -46,7 +47,6 @@ public class Robot extends TimedRobot
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    CameraServer.startAutomaticCapture();
 
     // Create a timer to disable motor brake a few seconds after disable.  This will let the robot stop
     // immediately when disabled, but then also let it be pushed more 

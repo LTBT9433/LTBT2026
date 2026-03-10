@@ -49,6 +49,9 @@ public class ArmSubsystem extends SubsystemBase {
   private double desiredAngle = 0;
   private double measuredAngle = 0;
 
+  private double feedback = 0;
+  private double feedforward = 0;
+
   // private final DoublePublisher encoderAngle;
 
   public ArmSubsystem() {
@@ -84,13 +87,14 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ARM/Measured distance rads", this.measuredAngle);
     SmartDashboard.putNumber("ARM/Offset distance rads", this.measuredAngle + ArmCostants.ARM_VERTICAL);
     SmartDashboard.putNumber("ARM/Desired angle", this.desiredAngle);
+    SmartDashboard.updateValues();
 
-    double feedforward = m_armFeedforward.calculate(this.desiredAngle, ArmCostants.kMaxVelocityRadPerSec); // desiredAngle should be in rads?
+    this.feedforward = m_armFeedforward.calculate(this.desiredAngle, ArmCostants.kMaxVelocityRadPerSec); // desiredAngle should be in rads?
 
-    double feedback = m_armFeedback.calculate(m_armEncoder.getDistance() + ArmCostants.ARM_VERTICAL, this.desiredAngle);
+    this.feedback = m_armFeedback.calculate(m_armEncoder.getDistance() + ArmCostants.ARM_VERTICAL, this.desiredAngle);
     
     return run(() -> {
-        // armMotor.setVoltage(feedforward + feedback);
+        armMotor.setVoltage(this.feedforward + this.feedback);
         armMotor.setVoltage(0);
     });
   }
