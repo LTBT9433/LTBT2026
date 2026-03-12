@@ -110,6 +110,15 @@ public class ArmSubsystem extends SubsystemBase {
     return run(() -> armMotor.set(0.1));
   }
 
+  public Command setArmSpeed(double speed){
+    return run(() -> armMotor.set(speed));
+  }
+
+  public double getOffsetAngle(){
+    double angle = this.m_armEncoder.getDistance() + ArmCostants.ARM_VERTICAL;
+    return angle;
+  }
+
   @Override
   public void periodic() {
   

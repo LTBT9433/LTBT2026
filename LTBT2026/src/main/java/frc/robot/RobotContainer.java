@@ -19,7 +19,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -35,6 +38,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.AutoArmCommand;
 
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -89,8 +93,9 @@ public class RobotContainer
     // DriverStation.silenceJoystickConnectionWarning(true);
 
     //Set the default auto (do nothing) 
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    autoChooser.setDefaultOption("Shoot and arm auto", Commands.none());
 
+    autoChooser.addOption("Do Nothing", Commands.none());
     //Add a simple auto option to have the robot drive forward for 1 second then stop
     
     autoChooser.addOption("Drive Forward 1m", new DriveToPose(
@@ -117,7 +122,7 @@ public class RobotContainer
 
     // Defaults
     drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
-    armSystem.setDefaultCommand(armSystem.armToAngle());
+    armSystem.setDefaultCommand(armSystem.stopArm());
     feedSystem.setDefaultCommand(feedSystem.stopFeeder());
     shootSystem.setDefaultCommand(shootSystem.stopShooter());
     intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
@@ -156,8 +161,14 @@ public class RobotContainer
    */
   public Command getAutonomousCommand()
   {
+    AutoArmCommand autoArmCommand = new AutoArmCommand(this.armSystem);
     // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand 
-    return autoChooser.getSelected();
+    return new SequentialCommandGroup(
+      autoArmCommand.withTimeout(5),
+      new RunCommand(() -> this.shootSystem.shootCommand()
+      .alongWith(this.feedSystem.feedCommand())).repeatedly().withTimeout(7)
+    );
+    // return autoChooser.getSelected();
   }
 
   public void setMotorBrake(boolean brake)
