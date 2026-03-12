@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ShooterSubsystem extends SubsystemBase {
  
@@ -20,11 +21,13 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public Command shootCommand(){
+    SmartDashboard.putBoolean("SHOOTER/Fly Wheel ON", true);
     return this.run(() -> shooter.set(0.6));
   }
 
 
   public Command stopShooter(){
+    SmartDashboard.putBoolean("SHOOTER/Fly Wheel ON", false);
     return this.run(() -> shooter.set(0));
 
   }

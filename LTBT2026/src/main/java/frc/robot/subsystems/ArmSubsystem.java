@@ -87,7 +87,6 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ARM/Measured distance rads", this.measuredAngle);
     SmartDashboard.putNumber("ARM/Offset distance rads", this.measuredAngle + ArmCostants.ARM_VERTICAL);
     SmartDashboard.putNumber("ARM/Desired angle", this.desiredAngle);
-    SmartDashboard.updateValues();
 
     this.feedforward = m_armFeedforward.calculate(this.desiredAngle, ArmCostants.kMaxVelocityRadPerSec); // desiredAngle should be in rads?
 

@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class AutoArmCommand extends Command {
   @SuppressWarnings("PMD.UnusedPrivateField")
   private  ArmSubsystem m_ArmSubsystem;
-  private BooleanSupplier done = false;
+  private boolean done = false;
 
   /**
    * Creates a new ExampleCommand.
