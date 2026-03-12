@@ -128,15 +128,15 @@ public class RobotContainer
     intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
 
     // feed wheel
-    kynanController.button(6).whileTrue(feedSystem.feedOutCommand());
-    kynanController.button(5).whileTrue(feedSystem.feedCommand());
+    kynanController.axisGreaterThan(5, 0.5).whileTrue(feedSystem.feedOutCommand());
+    kynanController.axisGreaterThan(6, 0.5).whileTrue(feedSystem.feedCommand());
 
     // Shooter
     kynanController.button(2).toggleOnTrue(shootSystem.shootCommand());
 
     // intake
-    kynanController.button(1).whileTrue(intakeSystem.intakeIn());
-    kynanController.button(4).whileTrue(intakeSystem.intakeOut());
+    kynanController.button(6).whileTrue(intakeSystem.intakeIn());
+    kynanController.button(5).whileTrue(intakeSystem.intakeOut());
 
     // kynanController.button(3).whileTrue(armSystem.armUp());
     // For reference: if then:
