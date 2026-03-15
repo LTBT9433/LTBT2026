@@ -81,7 +81,7 @@ public class RobotContainer
                                                             .withControllerRotationAxis(() -> driverController.getRawAxis(4) * -0.5)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
-                                                            .allianceRelativeControl(true);
+                                                            .allianceRelativeControl(false);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -128,11 +128,11 @@ public class RobotContainer
     intakeSystem.setDefaultCommand(intakeSystem.stopIntake());
 
     // feed wheel
-    kynanController.axisGreaterThan(5, 0.5).whileTrue(feedSystem.feedOutCommand());
-    kynanController.axisGreaterThan(6, 0.5).whileTrue(feedSystem.feedCommand());
+    kynanController.button(4).whileTrue(feedSystem.feedOutCommand());
+    kynanController.axisGreaterThan(3, 0.75).whileTrue(feedSystem.feedCommand());
 
     // Shooter
-    kynanController.button(2).toggleOnTrue(shootSystem.shootCommand());
+    kynanController.axisGreaterThan(2, 0.75).whileTrue(shootSystem.shootCommand());
 
     // intake
     kynanController.button(6).whileTrue(intakeSystem.intakeIn());
@@ -163,12 +163,13 @@ public class RobotContainer
   {
     AutoArmCommand autoArmCommand = new AutoArmCommand(this.armSystem);
     // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand 
-    return new SequentialCommandGroup(
-      autoArmCommand.withTimeout(5),
-      new RunCommand(() -> this.shootSystem.shootCommand()
-      .alongWith(this.feedSystem.feedCommand())).repeatedly().withTimeout(7)
-    );
-    // return autoChooser.getSelected();
+    // return new SequentialCommandGroup(
+    //   autoArmCommand.withTimeout(5),
+    //   new RunCommand(() -> this.shootSystem.shootCommand()
+    //   .alongWith(this.feedSystem.feedCommand())).repeatedly().withTimeout(7)
+    // );
+    // return autoArmCommand;
+    return autoChooser.getSelected();
   }
 
   public void setMotorBrake(boolean brake)

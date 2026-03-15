@@ -22,12 +22,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public Command shootCommand(){
     SmartDashboard.putBoolean("SHOOTER/Fly Wheel ON", true);
+    SmartDashboard.updateValues();
     return this.run(() -> shooter.set(0.6));
   }
 
 
   public Command stopShooter(){
     SmartDashboard.putBoolean("SHOOTER/Fly Wheel ON", false);
+    SmartDashboard.updateValues();
     return this.run(() -> shooter.set(0));
 
   }

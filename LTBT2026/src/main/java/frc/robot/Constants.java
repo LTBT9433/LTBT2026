@@ -54,7 +54,7 @@ public final class Constants
   }
   public static class IntakeConstants{
     public static final int INTAKE_ID = 9;
-    public static final double INTAKE_SPEED = 0.5;
+    public static final double INTAKE_SPEED = 0.3;
   }
   public static class ArmCostants{
     public static final int ARM_ID = 11;
@@ -74,6 +74,6 @@ public final class Constants
 
     public static final double ENCODER_TICK_RATE = 2048;
     public static final double kEncoderDistancePerPulse = 2 * Math.PI / ENCODER_TICK_RATE; // 2rad per full rotation
-    public static final double ARM_VERTICAL = 1.48; // NEEDS TO BE MEASURED!
+    public static final double ARM_VERTICAL = 1.31; // NEEDS TO BE MEASURED!
   }
 }

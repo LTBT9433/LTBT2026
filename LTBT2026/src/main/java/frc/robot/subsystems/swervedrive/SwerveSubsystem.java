@@ -50,10 +50,10 @@ public class SwerveSubsystem extends SubsystemBase
     boolean blueAlliance = false;
     Pose2d startingPose = blueAlliance ? new Pose2d(new Translation2d(Meter.of(0),
                                                                       Meter.of(0)),
-                                                    Rotation2d.fromDegrees(0))
+                                                    Rotation2d.fromDegrees(180))
                                        : new Pose2d(new Translation2d(Meter.of(0),
                                                                       Meter.of(0)),
-                                                    Rotation2d.fromDegrees(0));
+                                                    Rotation2d.fromDegrees(180));
     // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
     SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
     try
