@@ -23,11 +23,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public Command intakeIn(){
-    return this.run(() -> intake.set(-0.2));
+    return this.run(() -> intake.set(-0.3));
   }
 
   public Command intakeOut(){
-    return this.run(() -> intake.set(0.2));
+    return this.run(() -> intake.set(0.3));
   }
 
   public Command stopIntake(){

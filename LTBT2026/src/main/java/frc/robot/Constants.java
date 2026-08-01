@@ -50,10 +50,10 @@ public final class Constants
   }
   public static class ShooterConstants{
     public static final int SHOOTER_ID = 11;
-    public static final int FEEDER_ID = 10;
+    public static final int FEEDER_ID = 9;
   }
   public static class IntakeConstants{
-    public static final int INTAKE_ID = 9;
+    public static final int INTAKE_ID = 10;
     public static final double INTAKE_SPEED = 0.3;
   }
   public static class ArmCostants{
