@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkFlex;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -12,11 +12,11 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class FeederSubsystem extends SubsystemBase {
  
-  private SparkMax feed;
+  private SparkFlex feed;
  
   /** Creates a new ExampleSubsystem. */
   public FeederSubsystem() {
-    feed = new SparkMax(ShooterConstants.FEEDER_ID, MotorType.kBrushed);
+    feed = new SparkFlex(ShooterConstants.FEEDER_ID, MotorType.kBrushless);
   }
 
   public Command feedCommand(){

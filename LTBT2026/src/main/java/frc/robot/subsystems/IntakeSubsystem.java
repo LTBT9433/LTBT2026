@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkFlex;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -15,11 +15,11 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class IntakeSubsystem extends SubsystemBase {
  
-  private SparkMax intake;
+  private SparkFlex intake;
  
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
-    intake = new SparkMax(Constants.IntakeConstants.INTAKE_ID, MotorType.kBrushless);
+    intake = new SparkFlex(Constants.IntakeConstants.INTAKE_ID, MotorType.kBrushless);
   }
 
   public Command intakeIn(){

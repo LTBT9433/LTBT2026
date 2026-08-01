@@ -49,7 +49,7 @@ public final class Constants
     public static final double TURN_CONSTANT    = 6;
   }
   public static class ShooterConstants{
-    public static final int SHOOTER_ID = 12;
+    public static final int SHOOTER_ID = 11;
     public static final int FEEDER_ID = 10;
   }
   public static class IntakeConstants{
@@ -57,7 +57,7 @@ public final class Constants
     public static final double INTAKE_SPEED = 0.3;
   }
   public static class ArmCostants{
-    public static final int ARM_ID = 11;
+    public static final int ARM_ID = 12;
     public static final double kMaxVelocityRadPerSec = Units.degreesToRadians(0.2); 
 
     public static final double ARM_SVOLTS = 0; // may need increase if it's too slow, this accounds for friction
